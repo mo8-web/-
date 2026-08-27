@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#650f20">
+<title>أثر | للفخامة عنوان وانتي تفاصيلها</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar">
+  <div>توصيل الطلبات لجميع المناطق</div>
+  <div class="top-contact">للتواصل: <a href="tel:01556634099">01556634099</a></div>
+  <div>الدفع عند الاستلام متاح</div>
+</div>
+<header class="header">
+  <button class="icon-btn mobile-menu" aria-label="القائمة">☰</button>
+  <div class="header-actions">
+    <button class="action" id="accountBtn"><span>♙</span><small>حسابي</small></button>
+    <button class="action" id="wishlistBtn"><span>♡</span><small>المفضلة</small></button>
+    <button class="cart-btn" id="cartBtn"><span>🛍</span> سلة المشتريات <b id="cartCount">0</b></button>
+  </div>
+  <a class="brand" href="#home" aria-label="أثر">
+    <img src="assets/logo.png" alt="أثر - للفخامة عنوان وانتي تفاصيلها">
+  </a>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="ابحثي عن منتج..." autocomplete="off">
+    <button id="searchBtn" aria-label="بحث">⌕</button>
+  </div>
+</header>
+<nav class="nav" id="mainNav">
+  <a href="#home">الرئيسية</a>
+  <a href="#products" data-category="عبايات">عبايات</a>
+  <a href="#products" data-category="عطور">عطور</a>
+  <a href="#products" data-category="شنط">شنط</a>
+</nav>
+<main id="home">
+<section class="hero">
+  <div class="hero-content">
+    <span class="eyebrow">ATHAR • LUXURY COLLECTION</span>
+    <h1>للفخامة عنوان<br><em>وانتي تفاصيلها</em></h1>
+    <p>اختيارات راقية من العبايات والعطور والشنط، صُممت لتكمل أناقتك في كل مناسبة.</p>
+    <button class="gold-btn" data-scroll="products">تسوقي الآن</button>
+  </div>
+  <div class="hero-art">
+    <div class="glow"></div><div class="hero-bag"></div><div class="hero-perfume"></div>
+  </div>
+</section>
+<section class="categories">
+  <button class="category-card" data-filter="عبايات"><div class="cat-art abaya-art"></div><div><b>عبايات</b><span>أناقة محتشمة بلمسة عصرية</span><i>تسوقي الآن ←</i></div></button>
+  <button class="category-card" data-filter="عطور"><div class="cat-art perfume-art"></div><div><b>عطور</b><span>عبير يترك أثرًا لا يُنسى</span><i>تسوقي الآن ←</i></div></button>
+  <button class="category-card" data-filter="شنط"><div class="cat-art bag-art"></div><div><b>شنط</b><span>تفاصيل فاخرة تكمل إطلالتك</span><i>تسوقي الآن ←</i></div></button>
+</section>
+<section class="products-section" id="products">
+  <div class="section-head"><div><span>مختارات أثر</span><h2>الأكثر مبيعًا</h2></div><div class="filters"><button class="filter active" data-filter="الكل">الكل</button><button class="filter" data-filter="عبايات">عبايات</button><button class="filter" data-filter="عطور">عطور</button><button class="filter" data-filter="شنط">شنط</button></div></div>
+  <div class="products" id="productsGrid"></div>
+</section>
+<section class="brand-note"><div><span>أثر</span><h2>للفخامة عنوان وانتي تفاصيلها</h2><p>لأن التفاصيل الصغيرة هي التي تصنع الإطلالة التي لا تُنسى.</p></div><a href="tel:01556634099">تواصلي معنا 01556634099</a></section>
+</main>
+<footer><div class="footer-brand">أثر</div><p>© 2026 أثر — جميع الحقوق محفوظة</p><a href="tel:01556634099">01556634099</a></footer>
+<div class="toast" id="toast"></div>
+<div class="drawer" id="cartDrawer"><div class="drawer-head"><h3>سلة المشتريات</h3><button id="closeCart">×</button></div><div id="cartItems"></div><div class="cart-total"><span>الإجمالي</span><strong id="cartTotal">0 ر.س</strong></div><button class="checkout" id="checkoutBtn">إتمام الطلب</button></div>
+<div class="overlay" id="overlay"></div>
+<script src="script.js"></script>
+</body>
+</html>
