@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+البحث | نبض اليمن
+{% endblock %}
+
+{% block content %}
+
+<div class="search-page">
+
+    <div class="section-title">
+        <h1>نتائج البحث</h1>
+    </div>
+
+    <form class="large-search" action="{{ url_for('search') }}" method="get">
+        <input name="q" value="{{ query }}" placeholder="اكتب كلمة البحث..." autofocus>
+        <button type="submit">بحث</button>
+    </form>
+
+    {% if query %}
+        <p class="result-count">
+            نتائج البحث عن: <strong>{{ query }}</strong>
+        </p>
+    {% endif %}
+
+    <div class="news-grid">
+
+        {% for item in results %}
+
+            <article class="news-card">
+
+                {% if item['image_url'] %}
+                    <img src="{{ item['image_url'] }}" alt="{{ item['title'] }}" loading="lazy">
+                {% endif %}
+
+                <div class="card-body">
+
+                    <span class="card-category">
+                        {{ item['category'] }}
+                    </span>
+
+                    <h3>
+                        <a href="{{ url_for('article', article_id=item['id']) }}">
+                            {{ item['title'] }}
+                        </a>
+                    </h3>
+
+                    <p>
+                        {{ item['content'][:160] if item['content'] else '' }}
+                    </p>
+
+                </div>
+
+            </article>
+
+        {% else %}
+
+            {% if query %}
+                <div class="empty-box">
+                    لم نجد أخباراً مطابقة لبحثك.
+                </div>
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

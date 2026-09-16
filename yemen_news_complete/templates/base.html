@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+
+    <!-- يجعل الموقع متجاوباً مع شاشات الجوال -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}نبض اليمن{% endblock %}</title>
+
+    <!-- خط عربي واضح من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- ملف التصميم الرئيسي -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="top-header container">
+
+        <!-- شعار موقعنا -->
+        <a class="logo" href="{{ url_for('home') }}">
+            <span>نبض</span>
+            <strong>اليمن</strong>
+        </a>
+
+        <!-- مربع البحث -->
+        <form class="search-box" action="{{ url_for('search') }}" method="get">
+            <input name="q" type="search" placeholder="ابحث في الأخبار..." aria-label="البحث">
+            <button type="submit">بحث</button>
+        </form>
+
+    </div>
+
+    <!-- شريط الأقسام -->
+    <nav class="nav-bar">
+        <div class="container nav-inner">
+            <a href="{{ url_for('home') }}">الرئيسية</a>
+            <a href="{{ url_for('category_page', category='اليمن') }}">اليمن</a>
+            <a href="{{ url_for('category_page', category='أخبار') }}">أخبار</a>
+            <a href="{{ url_for('category_page', category='سوريا') }}">سوريا</a>
+            <a href="{{ url_for('category_page', category='مصر') }}">مصر</a>
+            <a href="{{ url_for('category_page', category='العراق') }}">العراق</a>
+            <a href="{{ url_for('category_page', category='المغرب العربي') }}">المغرب العربي</a>
+        </div>
+    </nav>
+
+</header>
+
+
+<!-- شريط الأخبار العاجلة -->
+<section class="breaking-bar">
+    <div class="container breaking-inner">
+        <span class="breaking-label">عاجل</span>
+
+        <div class="breaking-track">
+            {% for item in breaking %}
+                <a href="{{ url_for('article', article_id=item['id']) }}">
+                    {{ item['title'] }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<main class="container page-content">
+    {% block content %}{% endblock %}
+</main>
+
+
+<footer class="footer">
+    <div class="container">
+        <h3>نبض اليمن</h3>
+        <p>
+            منصة إخبارية تجميعية تعرض الأخبار مع الإشارة الواضحة إلى المصدر الأصلي.
+        </p>
+
+        <p class="copyright">
+            الأخبار والصور المعروضة مصدرها موقع الحدث.
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>

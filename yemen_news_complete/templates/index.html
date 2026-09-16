@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}
+نبض اليمن | آخر الأخبار
+{% endblock %}
+
+{% block content %}
+
+<!-- السلايدر الرئيسي -->
+<section class="hero">
+
+    {% if slider %}
+        {% for item in slider %}
+        <article class="hero-slide {% if loop.first %}active{% endif %}">
+
+            {% if item['image_url'] %}
+                <img src="{{ item['image_url'] }}" alt="{{ item['title'] }}" loading="eager">
+            {% else %}
+                <div class="image-placeholder">نبض اليمن</div>
+            {% endif %}
+
+            <div class="hero-overlay">
+                <span class="category">{{ item['category'] }}</span>
+
+                <h1>{{ item['title'] }}</h1>
+
+                <p>
+                    {{ item['content'][:180] if item['content'] else 'آخر الأخبار والتطورات.' }}
+                </p>
+
+                <a class="read-button" href="{{ url_for('article', article_id=item['id']) }}">
+                    اقرأ الخبر
+                </a>
+            </div>
+
+        </article>
+        {% endfor %}
+
+        <button class="slider-button prev" onclick="changeSlide(-1)">‹</button>
+        <button class="slider-button next" onclick="changeSlide(1)">›</button>
+    {% else %}
+        <div class="empty-box">
+            لا توجد أخبار حتى الآن. شغّل التحديث من:
+            <a href="/refresh">تحديث الأخبار</a>
+        </div>
+    {% endif %}
+
+</section>
+
+
+<div class="home-grid">
+
+    <!-- العمود الرئيسي -->
+    <section>
+
+        <div class="section-title">
+            <h2>
+                {% if active_category %}
+                    أخبار {{ active_category }}
+                {% else %}
+                    أحدث الأخبار
+                {% endif %}
+            </h2>
+        </div>
+
+        <div class="news-grid">
+
+            {% for item in news %}
+
+            <article class="news-card">
+
+                <a href="{{ url_for('article', article_id=item['id']) }}">
+
+                    {% if item['image_url'] %}
+                        <img src="{{ item['image_url'] }}" alt="{{ item['title'] }}" loading="lazy">
+                    {% else %}
+                        <div class="card-placeholder">نبض اليمن</div>
+                    {% endif %}
+
+                </a>
+
+                <div class="card-body">
+
+                    <span class="card-category">
+                        {{ item['category'] }}
+                    </span>
+
+                    <h3>
+                        <a href="{{ url_for('article', article_id=item['id']) }}">
+                            {{ item['title'] }}
+                        </a>
+                    </h3>
+
+                    <p>
+                        {{ item['content'][:130] if item['content'] else '' }}
+                    </p>
+
+                    <div class="card-footer">
+                        <span>{{ item['published_at'] or 'حديثاً' }}</span>
+                        <span>المصدر: الحدث</span>
+                    </div>
+
+                </div>
+            </article>
+
+            {% else %}
+
+            <div class="empty-box">
+                لم يتم تحميل الأخبار بعد.
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar">
+
+        <div class="side-box">
+            <div class="side-title">
+                الأكثر قراءة
+            </div>
+
+            {% for item in news[:6] %}
+
+            <a class="popular-item" href="{{ url_for('article', article_id=item['id']) }}">
+
+                <span class="number">{{ loop.index }}</span>
+
+                <span>{{ item['title'] }}</span>
+
+            </a>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div class="side-box">
+            <div class="side-title">
+                روابط سريعة
+            </div>
+
+            <a class="quick-link" href="/refresh">
+                تحديث الأخبار الآن
+            </a>
+
+            <a class="quick-link" href="{{ url_for('search') }}">
+                البحث في الأخبار
+            </a>
+        </div>
+
+    </aside>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/slider.js') }}"></script>
+
+{% endblock %}

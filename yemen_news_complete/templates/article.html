@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ article['title'] }} | نبض اليمن
+{% endblock %}
+
+{% block content %}
+
+<article class="article-page">
+
+    <div class="article-category">
+        {{ article['category'] }}
+    </div>
+
+    <h1>{{ article['title'] }}</h1>
+
+    <div class="article-meta">
+        <span>{{ article['published_at'] or 'حديثاً' }}</span>
+        <span>المصدر: الحدث</span>
+    </div>
+
+    {% if article['image_url'] %}
+        <img class="article-image"
+             src="{{ article['image_url'] }}"
+             alt="{{ article['title'] }}">
+    {% endif %}
+
+    <div class="source-note">
+        هذا الخبر منقول/معروض من المصدر الأصلي:
+        <a href="{{ article['source_url'] }}" target="_blank" rel="noopener noreferrer">
+            الحدث
+        </a>
+    </div>
+
+    <div class="article-content">
+        {% for paragraph in article['content'].split('\n\n') %}
+            {% if paragraph.strip() %}
+                <p>{{ paragraph }}</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <a class="original-button"
+       href="{{ article['source_url'] }}"
+       target="_blank"
+       rel="noopener noreferrer">
+        قراءة الخبر في المصدر الأصلي
+    </a>
+
+</article>
+
+<section class="related">
+    <div class="section-title">
+        <h2>أحدث الأخبار</h2>
+    </div>
+
+    <div class="news-grid">
+        {% for item in latest %}
+            <article class="news-card">
+                {% if item['image_url'] %}
+                    <img src="{{ item['image_url'] }}" alt="{{ item['title'] }}" loading="lazy">
+                {% endif %}
+                <div class="card-body">
+                    <h3>
+                        <a href="{{ url_for('article', article_id=item['id']) }}">
+                            {{ item['title'] }}
+                        </a>
+                    </h3>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
